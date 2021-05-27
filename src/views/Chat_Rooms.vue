@@ -10,14 +10,21 @@
         <div v-if="existingRoom">
           <h4>Room with this name already exists, please try again!</h4>
         </div>
-        <span><input v-model="roomName" type="text"></span>
-        <span><button v-on:click="onCreate">Create</button></span><br><br>
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <input v-model="roomName" type="text" class="form-control" placeholder="Enter name of new room...">
+          </div>
+          <div class="col-auto">
+            <button v-on:click="onCreate" type="button" class="btn btn-outline-success">Create</button>
+          </div>
+        </div>
+        <br><br>
         <h3>Chat rooms list:</h3>
-        <ul>
-          <li v-for="room in roomsOfUser" v-bind:key="room.id">
+        <ul class="list-group list-group-flush">
+          <li v-for="room in roomsOfUser" v-bind:key="room.id" class="list-group-item list-group-item-success">
             <p v-on:click="onJoin(room.id)">{{room.name}}(your room)</p>
           </li>
-          <li v-for="room in otherRooms" v-bind:key="room.id">
+          <li v-for="room in otherRooms" v-bind:key="room.id" class="list-group-item">
             <p v-on:click="onJoin(room.id)">{{room.name}}</p>
           </li>
         </ul>

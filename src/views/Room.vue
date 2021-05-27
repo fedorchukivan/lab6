@@ -17,51 +17,74 @@
         </div>
         <div v-else>
             <div v-if="isOwner">
-              <span><button v-on:click="onLeave">Leave</button></span>
-              <span>    {{roomName}}    </span>
-              <span><button v-on:click="onUpdating">Update</button></span>
-              <span><button v-on:click="onDelete">Delete</button></span><br><br>
+              <nav class="navbar navbar-light" style="background-color: #42b983;">
+                <span style="padding-left:5%"><button type="button" class="btn btn-outline-secondary" v-on:click="onLeave" >Leave</button></span>
+                <span style="color:white">    {{roomName}}    </span>
+                <span><button type="button" class="btn btn-outline-light" v-on:click="onUpdating">Update</button></span>
+                <span><button type="button" class="btn btn-outline-danger" v-on:click="onDelete">Delete</button></span><br><br>
+              </nav>
             </div>
             <div v-else>
-              <span><button v-on:click="onLeave">Leave</button></span>
-              <span>    {{roomName}}    </span>
+              <nav class="navbar navbar-light" style="background-color: #42b983;">
+                <span style="padding-left:5%"><button type="button" class="btn btn-outline-secondary" v-on:click="onLeave">Leave</button></span>
+                <span style="color:white">    {{roomName}}    </span><br><br>
+              </nav>
             </div>
-            <br><br>
+            
         </div>
         <table style="width:90%; margin-left:5%">
           <tr>
-            <td style="vertical-align:top; border: 1px solid black; width:80%">
-              <table style="width:90%; margin-left:5%;" cellspacing="0">
-                <tr style="text-align:center"><h5>Messages</h5></tr>
+            <td style="vertical-align:top; border: 1px solid black; width:80%; overflow:hidden">
+              <div class="row"><h5 style="color:grey">Messages</h5></div>
+              <table style="width:97%; margin-left:1%;" cellspacing="0">
                 <div v-for="message in messages" v-bind:key="message.id" style="margin-bottom: 5px;">
-                  <div v-if="message.author.id === -1">
-                    <tr style="text-align:center">{{message.text}}</tr>
+                  <div v-if="message.author.id === -1" class="row">
+                    {{message.text}}
+                  </div>
+                  <div v-else-if="message.author.username === user.data.me.username">
+                    <div style="background-color: #58f3ad;">
+                      <div class="row">
+                        <p style="text-align:left; font-weight:bold;">{{message.author.username}}:</p>
+                      </div>
+                      <div class="row">
+                        <div class="col" style="text-align:left">{{message.text}}</div>
+                        <div class="col-2">{{message.timestamp}}</div>
+                      </div>
+                    </div>
                   </div>
                   <div v-else>
-                    <tr>
-                      <th colspan="2" style="text-align:left">{{message.author.username}}:</th>
-                    </tr>
-                    <tr>
-                      <td style="text-align:left; width:90%; max-width:900px; overlow:hidden" >{{message.text}}</td>
-                      <td>{{message.timestamp}}</td>
-                    </tr>
+                    <div class="row">
+                      <p style="text-align:left; font-weight:bold">{{message.author.username}}:</p>
+                    </div>
+                    <div class="row">
+                      <div class="col" style="text-align:left">{{message.text}}</div>
+                      <div class="col-2">{{message.timestamp}}</div>
+                    </div>
                   </div>
                 </div>
               </table>
             </td>
-            <td style="vertical-align:top; border: 1px solid black">
-              <table style="margin-left:auto; margin-right:auto">
-                <tr>Owner: {{owner.username}}</tr>
-                <tr>Active users: </tr>
-                <tr v-for="member in members" v-bind:key="member.id">
-                  <td>{{member.username}}</td>
-                </tr>
-              </table>
+            <td style="vertical-align:top; border: 1px solid black; width:40%;">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-primary">Owner: {{owner.username}}</li>
+                <li class="list-group-item list-group-item-secondary">Active users: </li>
+                <div v-for="member in members" v-bind:key="member.id">
+                  <li v-if="member.id === user.data.me.id" class="list-group-item list-group-item-success">{{member.username}}(you)</li>
+                  <li v-else class="list-group-item">{{member.username}}</li>
+                </div>
+              </ul>
             </td>
           </tr>
         </table>
-        <span><input v-model="newMessage" type="text" placeholder="Enter a message..."></span>
-        <span><button v-on:click="onSend">Send</button></span>
+        <br>
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <input v-model="newMessage" type="text" class="form-control" placeholder="Enter a message...">
+          </div>
+          <div class="col-auto">
+            <button v-on:click="onSend" type="button" class="btn btn-outline-success">Send</button>
+          </div>
+        </div>
       </div>
     </div>
 </template>
@@ -271,7 +294,7 @@ export default {
 h4 {
   color: red;
 }
-h5 {
-  color: #2c3e50;
+li:hover {
+  font-weight: normal;
 }
 </style>

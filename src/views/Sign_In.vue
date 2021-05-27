@@ -5,9 +5,9 @@
     <p>Login:</p>
     <input v-model="login" type="text">
     <p>Password:</p>
-    <input v-model="password" type="password" ><br>
-    <input type="submit" value="Sign In" @click="onClick">
-    <input v-if="user.data !== null" type="submit" value="Sign Out" @click="onSigningOut">
+    <input v-model="password" type="password" ><br><br>
+    <button type="button" class="btn btn-dark" @click="onClick">Sign In</button>
+    <button v-if="user.data !== null" type="button" class="btn btn-light" @click="onSigningOut">Sign Out</button>
   </div>
 </template>
 

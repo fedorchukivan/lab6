@@ -5,8 +5,8 @@
     <p>Login:</p>
     <input v-model="login" type="text">
     <p>Password:</p>
-    <input v-model="password" type="password" ><br>
-    <input type="submit" value="Register" @click="onClick">
+    <input v-model="password" type="password" ><br><br>
+    <button @click="onClick" type="button" class="btn btn-success">Register</button>
   </div>
 </template>
 
